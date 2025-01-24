@@ -1,15 +1,20 @@
 package com.example.smarthomeapp.presentation.views
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -24,25 +29,31 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.smarthomeapp.data.DMSansRegular
 import com.example.smarthomeapp.data.DMSansSemiBold
 import com.example.smarthomeapp.ui.theme.black
 import com.example.smarthomeapp.ui.theme.deepGray
 import com.example.smarthomeapp.ui.theme.gray
-import com.example.smarthomeapp.ui.theme.purple
+import com.example.smarthomeapp.ui.theme.orange
 import com.example.smarthomeapp.ui.theme.violet
 import com.example.smarthomeapp.ui.theme.white
+import com.example.smarthomeapp.ui.theme.yellow
 
 @Composable
 fun HomeScreen(){
+    BlurredCanvasWithRoundedCorners()
     Column(
-        modifier = Modifier.fillMaxSize().background(black)
+        modifier = Modifier.fillMaxSize().background(Color.Transparent)
     ) {
+        Spacer(modifier = Modifier.size(16.dp))
         Row(
             modifier = Modifier.fillMaxWidth().padding(22.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -50,7 +61,7 @@ fun HomeScreen(){
         ) {
             Card(
                 modifier = Modifier.size(56.dp),
-                colors = CardDefaults.cardColors(gray.copy(0.5f)),
+                colors = CardDefaults.cardColors(gray.copy(0.4f)),
                 shape = CircleShape
             ) {
                 Row(
@@ -68,7 +79,7 @@ fun HomeScreen(){
             }
             Card(
                 modifier = Modifier.size(56.dp),
-                colors = CardDefaults.cardColors(gray.copy(0.5f)),
+                colors = CardDefaults.cardColors(gray.copy(0.4f)),
                 shape = CircleShape
             ) {
                 Row(
@@ -124,7 +135,8 @@ fun HomeScreen(){
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Row(
-                            verticalAlignment = Alignment.CenterVertically
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             Icon(
                                 imageVector = Icons.Default.MoreVert,
@@ -213,8 +225,50 @@ fun HomeScreen(){
                 }
             }
         }
+
     }
 }
+
+@Composable
+fun BlurredCanvasWithRoundedCorners() {
+    Box(
+        modifier = Modifier.fillMaxSize().background(black)
+            .blur(96.dp), // Apply blur as a modifier
+        contentAlignment = Alignment.TopCenter
+    ) {
+        Canvas(
+            modifier = Modifier.width(300.dp).height(100.dp).offset(y = (-20).dp).scale(1.3f)
+        ) {
+            val cornerRadius = 24.dp.toPx()
+            val rectSize = size
+
+            // Draw a rounded rectangle
+            drawRoundRect(
+                color = yellow.copy(alpha = 0.5f), // Semi-transparent color
+                topLeft = Offset(0f, 0f),
+                size = rectSize,
+                cornerRadius = CornerRadius(cornerRadius, cornerRadius)
+            )
+        }
+        Canvas(
+            modifier = Modifier.width(200.dp).height(80.dp).offset(y = 30.dp).scale(0.9f)
+        ) {
+            val cornerRadius = 24.dp.toPx()
+            val rectSize = size
+
+            // Draw a rounded rectangle
+            drawRoundRect(
+                color = orange.copy(alpha = 0.6f), // Semi-transparent color
+                topLeft = Offset(0f, 0f),
+                size = rectSize,
+                cornerRadius = CornerRadius(cornerRadius, cornerRadius)
+            )
+        }
+    }
+}
+
+
+
 
 @Preview(showBackground = true)
 @Composable
