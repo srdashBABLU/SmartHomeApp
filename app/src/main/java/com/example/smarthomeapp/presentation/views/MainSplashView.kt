@@ -31,6 +31,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.smarthomeapp.R
 import com.example.smarthomeapp.data.DMSansRegular
 import com.example.smarthomeapp.data.DMSansSemiBold
@@ -40,7 +42,7 @@ import com.example.smarthomeapp.ui.theme.violet
 import com.example.smarthomeapp.ui.theme.white
 
 @Composable
-fun MainSplashScreen(){
+fun MainSplashScreen(navController: NavController){
     Column(modifier = Modifier.fillMaxSize()) {
         Image(
             modifier = Modifier.fillMaxSize(),
@@ -81,7 +83,7 @@ fun MainSplashScreen(){
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .clickable(onClick = {})
+                    .clickable(onClick = {navController.navigate("home")})
                     .padding(start = 6.dp, end = 6.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
@@ -132,5 +134,6 @@ fun MainSplashScreen(){
 @Preview(showBackground = true)
 @Composable
 fun MainSplashScreenPreview(){
-    MainSplashScreen()
+    val nav = rememberNavController()
+    MainSplashScreen(nav)
 }
